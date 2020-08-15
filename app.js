@@ -65,13 +65,20 @@ var UIController = (function() {
 		resetButton: '.button--reset',
 		scoreLabel: '.score--value',
 		gameOver: '.gameOver--container',
-		timeLable: '.time--value'
+		timeLable: '.time--value',
+		timeInputValue: '.time--input'
 	};
 
 	return {
 		getFinalValueInput: function() {
 			var input = document.querySelector(DOMstrings.finalValueInput).value;
 			return input;
+		},
+
+		getTimerInputValue: function() {
+			var time = document.querySelector(DOMstrings.timeInputValue).value;
+			console.log(time);
+			return time;
 		},
 
 		updateNumbers: function(number1, number2) {
@@ -95,6 +102,10 @@ var UIController = (function() {
 			document.querySelector(DOMstrings.gameOver).style.display = 'block';
 		},
 
+		updateTimer: function(value) {
+			document.querySelector(DOMstrings.timeLable).textContent = value;
+		},
+
 		getDOMstrings: function() {
 			return DOMstrings;
 		}
@@ -105,6 +116,7 @@ var controller = (function(dataController, UIController) {
 	var DOMstrings = UIController.getDOMstrings();
 	var data = dataController.getData();
 	let isPlaying = 0;
+	data.time = UIController.getTimerInputValue();
 
 	var eventListener = function() {
 		//Submit button
@@ -126,13 +138,11 @@ var controller = (function(dataController, UIController) {
 		var timeInterval = setInterval(function() {
 			data.time = data.time - 1;
 
-			if (isPlaying != 0) document.querySelector(DOMstrings.timeLable).textContent = data.time;
+			if (isPlaying != 0) UIController.updateTimer(data.time);
 
 			if (data.time < 1 || isPlaying === 0) {
-				if (data.time < 1) document.querySelector(DOMstrings.timeLable).textContent = 0;
-
+				if (data.time < 1) UIController.updateTimer(0);
 				endGame();
-				if (data.time < 1) document.querySelector(DOMstrings.timeLable).textContent = 0;
 			}
 		}, 1000);
 	})();
@@ -143,8 +153,8 @@ var controller = (function(dataController, UIController) {
 	};
 
 	var nextValue = function() {
-		data.time = 60;
-		document.querySelector(DOMstrings.timeLable).textContent = data.time;
+		data.time = UIController.getTimerInputValue();
+		UIController.updateTimer(data.time);
 		UIController.updateInputValue('');
 		//Get random numbers
 		dataController.setValue();
@@ -170,7 +180,7 @@ var controller = (function(dataController, UIController) {
 		if (parseInt(inputValue) === finalValue) {
 			nextValue();
 			increaseScore(data);
-			data.time = 60;
+			data.time = UIController.getTimerInputValue();
 		}
 		else {
 			endGame();
@@ -192,8 +202,8 @@ var controller = (function(dataController, UIController) {
 	return {
 		init() {
 			isPlaying = 1;
-			data.time = 60;
-			document.querySelector(DOMstrings.timeLable).textContent = data.time;
+			data.time = UIController.getTimerInputValue();
+			UIController.updateTimer(data.time);
 			nextValue();
 			eventListener();
 			dataController.resetScore();
