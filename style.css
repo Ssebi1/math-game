@@ -1,0 +1,147 @@
+/* Style for index.html */
+
+body {
+	/* Animated gradient */
+	background: linear-gradient(310deg, #7fde2a, #179ee2, #9411cb, #cb117f, #cfc72a);
+	background-size: 600% 600%;
+	animation: AnimationName 50s ease infinite;
+}
+
+@keyframes AnimationName {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.container {
+	width: auto;
+	max-width: 1150px;
+	height: auto;
+	margin: 0 auto;
+	margin-top: 100px;
+	background-color: white;
+	border-radius: 12px;
+	border: 2px solid black;
+}
+
+.gameOver--container {
+	text-align: center;
+	font-size: 90px;
+	display: none;
+	color: rgb(201, 93, 93);
+	margin-top: 20px;
+}
+
+.score--container {
+	text-align: center;
+	font-size: 60px;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.math--container {
+	margin-left: 30px;
+	width: 1150px;
+	height: auto;
+	display: flex;
+	margin-top: 50px;
+}
+
+.number--container {
+	color: black;
+	width: 150px;
+	height: 150px;
+	border: 2px solid black;
+	border-radius: 20px;
+	display: flex;
+	margin: 20px;
+	font-size: 120px;
+	justify-content: center;
+}
+
+.operation--sign,
+.equal--sign {
+	font-size: 150px;
+}
+
+.number--result {
+	color: black;
+	width: 300px;
+	height: 150px;
+	border: 2px solid black;
+	border-radius: 20px;
+	display: flex;
+	margin: 20px;
+	outline: 0;
+	background-color: white;
+}
+
+input[type=text] {
+	font-size: 120px;
+	text-align: center;
+}
+
+.button--submit {
+	width: 150px;
+	height: 150px;
+	border: 2px solid rgb(75, 206, 75);
+	background-color: white;
+	font-size: 30px;
+	color: black;
+	justify-content: center;
+	border-radius: 20px;
+	display: flex;
+	margin: 20px;
+	outline: 0;
+	transition-duration: 0.4s;
+}
+
+.buttonText--submit {
+	margin-top: 55px;
+}
+
+.button--submit:hover {
+	background-color: rgb(75, 206, 75);
+	color: white;
+}
+
+.time--container {
+	text-align: center;
+	font-size: 40px;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.button--reset {
+	margin: 0 auto;
+	display: flex;
+	width: 120px;
+	height: 40px;
+	font-size: 20px;
+	justify-content: center;
+	border: 2px solid rgb(201, 93, 93);
+	border-radius: 10px;
+	transition-duration: 0.4s;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	outline: none;
+}
+
+.buttonText--reset {
+	margin-top: 4px;
+}
+
+input[type="text"]:disabled {
+	color: rgb(75, 206, 75);
+}
+
+.button--reset:hover {
+	color: white;
+	background-color: rgb(201, 93, 93);
+}
