@@ -126,11 +126,12 @@ var controller = (function(dataController, UIController) {
 		document.querySelector('.button--reset').addEventListener('click', controller.init);
 
 		//When enter is pressed
-		// document.addEventListener('keydown', (event) => {
-		// 	if (event.isComposing || event.keyCode === 13) {
-		// 		checkValue();
-		// 	}
-		// });
+		document.addEventListener('keydown', (event) => {
+			if (isPlaying == 1)
+				if (event.isComposing || event.keyCode === 13) {
+					checkValue();
+				}
+		});
 	};
 
 	var timer = (function() {
@@ -153,6 +154,7 @@ var controller = (function(dataController, UIController) {
 	};
 
 	var nextValue = function() {
+		document.querySelector(DOMstrings.finalValueInput).focus();
 		data.time = UIController.getTimerInputValue();
 		UIController.updateTimer(data.time);
 		UIController.updateInputValue('');
@@ -177,13 +179,15 @@ var controller = (function(dataController, UIController) {
 		var inputValue = UIController.getFinalValueInput();
 		var finalValue = dataController.getFinalValue(data.number1, data.number2, data.operator);
 
-		if (parseInt(inputValue) === finalValue) {
-			nextValue();
-			increaseScore(data);
-			data.time = UIController.getTimerInputValue();
-		}
-		else {
-			endGame();
+		if (inputValue != '') {
+			if (parseInt(inputValue) === finalValue) {
+				nextValue();
+				increaseScore(data);
+				data.time = UIController.getTimerInputValue();
+			}
+			else {
+				endGame();
+			}
 		}
 	};
 
