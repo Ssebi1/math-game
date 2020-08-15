@@ -4,7 +4,8 @@ var dataController = (function() {
 		number2: 0,
 		operator: 0,
 		arr: [ '&plus;', '&minus;', '&times;', '&divide;' ],
-		score: 0
+		score: 0,
+		time: 10
 	};
 
 	return {
@@ -63,7 +64,8 @@ var UIController = (function() {
 		submitButton: '.button--submit',
 		resetButton: '.button--reset',
 		scoreLabel: '.score--value',
-		gameOver: '.gameOver--container'
+		gameOver: '.gameOver--container',
+		timeLable: '.time--value'
 	};
 
 	return {
@@ -111,11 +113,11 @@ var controller = (function(dataController, UIController) {
 		document.querySelector('.button--reset').addEventListener('click', controller.init);
 
 		//When enter is pressed
-		document.addEventListener('keydown', function enterSubmit(event) {
-			if (event.isComposing || event.keyCode === 13) {
-				checkValue();
-			}
-		});
+		// document.addEventListener('keydown', (event) => {
+		// 	if (event.isComposing || event.keyCode === 13) {
+		// 		checkValue();
+		// 	}
+		// });
 	};
 
 	var disableEventListeners = function() {
@@ -149,15 +151,22 @@ var controller = (function(dataController, UIController) {
 		if (parseInt(inputValue) === finalValue) {
 			nextValue();
 			increaseScore(data);
+			data.time = 10;
 		}
 		else {
-			UIController.displayGameOver();
-			disableEventListeners();
-			//Disable input
-			finalValue = '' + finalValue;
-			UIController.updateInputValue(finalValue);
-			document.querySelector(DOMstrings.finalValueInput).disabled = true;
+			endGame();
 		}
+	};
+
+	var endGame = function() {
+		UIController.displayGameOver();
+		disableEventListeners();
+		//Disable input
+		var finalValue = dataController.getFinalValue(data.number1, data.number2, data.operator);
+		finalValue = '' + finalValue;
+		UIController.updateInputValue(finalValue);
+		document.querySelector(DOMstrings.finalValueInput).disabled = true;
+		isPlaying = 0;
 	};
 
 	return {
