@@ -5,7 +5,7 @@ var dataController = (function() {
 		operator: 0,
 		arr: [ '&plus;', '&minus;', '&times;', '&divide;' ],
 		score: 0,
-		time: 10
+		time: 60
 	};
 
 	return {
@@ -104,6 +104,7 @@ var UIController = (function() {
 var controller = (function(dataController, UIController) {
 	var DOMstrings = UIController.getDOMstrings();
 	var data = dataController.getData();
+	let isPlaying = 0;
 
 	var eventListener = function() {
 		//Submit button
@@ -120,12 +121,30 @@ var controller = (function(dataController, UIController) {
 		// });
 	};
 
+	var timer = (function() {
+		document.querySelector(DOMstrings.timeLable).textContent = data.time;
+		var timeInterval = setInterval(function() {
+			data.time = data.time - 1;
+
+			if (isPlaying != 0) document.querySelector(DOMstrings.timeLable).textContent = data.time;
+
+			if (data.time < 1 || isPlaying === 0) {
+				if (data.time < 1) document.querySelector(DOMstrings.timeLable).textContent = 0;
+
+				endGame();
+				if (data.time < 1) document.querySelector(DOMstrings.timeLable).textContent = 0;
+			}
+		}, 1000);
+	})();
+
 	var disableEventListeners = function() {
 		//Submit button
 		document.querySelector(DOMstrings.submitButton).removeEventListener('click', checkValue);
 	};
 
 	var nextValue = function() {
+		data.time = 60;
+		document.querySelector(DOMstrings.timeLable).textContent = data.time;
 		UIController.updateInputValue('');
 		//Get random numbers
 		dataController.setValue();
@@ -151,7 +170,7 @@ var controller = (function(dataController, UIController) {
 		if (parseInt(inputValue) === finalValue) {
 			nextValue();
 			increaseScore(data);
-			data.time = 10;
+			data.time = 60;
 		}
 		else {
 			endGame();
@@ -159,6 +178,7 @@ var controller = (function(dataController, UIController) {
 	};
 
 	var endGame = function() {
+		isPlaying = 0;
 		UIController.displayGameOver();
 		disableEventListeners();
 		//Disable input
@@ -171,6 +191,9 @@ var controller = (function(dataController, UIController) {
 
 	return {
 		init() {
+			isPlaying = 1;
+			data.time = 60;
+			document.querySelector(DOMstrings.timeLable).textContent = data.time;
 			nextValue();
 			eventListener();
 			dataController.resetScore();

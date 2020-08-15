@@ -118,6 +118,10 @@ input[type=text] {
 	margin-top: 20px;
 }
 
+.time--value {
+	color: red;
+}
+
 .button--reset {
 	margin: 0 auto;
 	display: flex;
