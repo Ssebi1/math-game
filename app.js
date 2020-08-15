@@ -77,7 +77,6 @@ var UIController = (function() {
 
 		getTimerInputValue: function() {
 			var time = document.querySelector(DOMstrings.timeInputValue).value;
-			console.log(time);
 			return time;
 		},
 
@@ -213,6 +212,7 @@ var controller = (function(dataController, UIController) {
 			dataController.resetScore();
 			UIController.updateScore(0);
 			document.querySelector(DOMstrings.finalValueInput).disabled = false;
+			document.querySelector(DOMstrings.finalValueInput).focus();
 			document.querySelector(DOMstrings.gameOver).style.display = 'none';
 		}
 	};

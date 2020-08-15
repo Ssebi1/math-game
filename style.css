@@ -3,7 +3,7 @@
 body {
 	/* Animated gradient */
 	background: linear-gradient(310deg, #7fde2a, #179ee2, #9411cb, #cb117f, #cfc72a);
-	background-size: 600% 600%;
+	background-size: 300% 300%;
 	animation: AnimationName 50s ease infinite;
 }
 
