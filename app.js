@@ -9,15 +9,43 @@ var dataController = (function() {
 	};
 
 	return {
-		setValue() {
+		setValue(diff) {
 			function getRandomInt(max) {
 				return Math.floor(Math.random() * Math.floor(max));
 			}
 
 			var number1, number2, operator;
-			number1 = getRandomInt(100);
-			number2 = getRandomInt(100) + 1;
-			operator = getRandomInt(4);
+
+			if (diff == 0) {
+				//Only sum of numbers up to 5
+				number1 = getRandomInt(6);
+				number2 = getRandomInt(6);
+				operator = getRandomInt(1);
+			}
+			else if (diff == 1) {
+				//Sum and dif of numbers up to 10
+				number1 = getRandomInt(11);
+				number2 = getRandomInt(11);
+				operator = getRandomInt(2);
+			}
+			else if (diff == 2) {
+				//Sum and dif of numbers up to 100
+				number1 = getRandomInt(100);
+				number2 = getRandomInt(100);
+				operator = getRandomInt(2);
+			}
+			else if (diff == 3) {
+				//Sum,dif,produce,division of numbers up to 50
+				number1 = getRandomInt(50);
+				number2 = getRandomInt(49) + 1;
+				operator = getRandomInt(4);
+			}
+			else if (diff == 4) {
+				//Sum,dif,produce of numbers up to 100
+				number1 = getRandomInt(100);
+				number2 = getRandomInt(99) + 1;
+				operator = getRandomInt(4);
+			}
 
 			//In case of negative numbers(+)
 			if ((operator === 1 || operator === 3) && number1 < number2) {
@@ -66,7 +94,8 @@ var UIController = (function() {
 		scoreLabel: '.score--value',
 		gameOver: '.gameOver--container',
 		timeLable: '.time--value',
-		timeInputValue: '.time--input'
+		timeInputValue: '.time--input',
+		diffInputValue: '.difficulty--input'
 	};
 
 	return {
@@ -103,6 +132,11 @@ var UIController = (function() {
 
 		updateTimer: function(value) {
 			document.querySelector(DOMstrings.timeLable).textContent = value;
+		},
+
+		getDifficultyInput: function() {
+			var diff = document.querySelector(DOMstrings.diffInputValue).value;
+			return diff;
 		},
 
 		getDOMstrings: function() {
@@ -158,7 +192,9 @@ var controller = (function(dataController, UIController) {
 		UIController.updateTimer(data.time);
 		UIController.updateInputValue('');
 		//Get random numbers
-		dataController.setValue();
+		var dif = UIController.getDifficultyInput();
+		console.log(dif);
+		dataController.setValue(dif);
 
 		//Update numbers and operators on UI
 		UIController.updateNumbers(data.number1, data.number2);

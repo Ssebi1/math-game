@@ -23,6 +23,18 @@
             <button type="submit" class="button--submit"><span class="buttonText--submit">Submit</span></button>
         </div>
         <div class="time--container">Time Left: <span class="time--value"></span>s</div>
+        <ul class="difficultyInput--container">
+            <li><label class="difficulty--label">Difficulty:</label></li>
+            <li>
+                <select name="difficulty--input" class="difficulty--input" onchange="controller.init()">
+                    <option value="0">Very Easy</option>
+                    <option value="1">Easy</option>
+                    <option value="2" selected>Normal</option>
+                    <option value="3">Hard</option>
+                    <option value="4">Very Hard</option>
+                </select>
+            </li>
+        </ul>
         <ul class="timeInput--container">
             <li><label class="time--label">Set Time:</label></li>
             <li><input type="text" name="time--input" class="time--input" placeholder="Custom time" maxlength="3"
